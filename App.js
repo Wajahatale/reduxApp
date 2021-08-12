@@ -30,20 +30,49 @@ class App extends Component {
     super(props);
     this.state = {
       objects: [],
-      newObject: '',
+      newUserFirstName: '',
+      newUserLastName: '',
+      newUserAge: '',
     };
-    this.handleChange = this.handleChange.bind(this);
+    this.handleFirstName = this.handleFirstName.bind(this);
+    this.handleLastName = this.handleLastName.bind(this);
+    this.handleAge = this.handleAge.bind(this);
   }
-  handleChange(val) {
+  handleFirstName(val) {
     this.setState({
-      newObject: val,
+      newUserFirstName: val,
+    });
+  }
+  handleLastName(val) {
+    this.setState({
+      newUserLastName: val,
+    });
+  }
+  handleAge(val) {
+    this.setState({
+      newUserAge: val,
     });
   }
   onButtonPress = () => {
-    this.addItemToTheList(this.state.newObject);
+    if (
+      this.state.newUserFirstName === '' ||
+      this.state.newUserLastName === '' ||
+      this.state.newUserAge === ''
+    ) {
+      Alert.alert('Please enter a valid first name!');
+    } else if (this.state.newUserLastName === '') {
+      Alert.alert('Please enter a valid last name!');
+    } else if (this.state.newUserAge === '') {
+      Alert.alert('Please enter a valid age!');
+    } else {
+      const newUser = {
+        firstName: this.state.newUserFirstName,
+        lastName: this.state.newUserLastName,
+        age: this.state.newUserAge,
+      };
 
-    // let {value, actions} = this.props;
-    // actions.changeData(value);
+      this.addItemToTheList(newUser);
+    }
   };
 
   addItemToTheList = item => {
@@ -52,7 +81,9 @@ class App extends Component {
 
     this.setState({
       objects: items,
-      newObject: '',
+      newUserFirstName: '',
+      newUserLastName: '',
+      newUserAge: '',
     });
     // Alert.alert(JSON.stringify(this.state.objects));
   };
@@ -71,18 +102,30 @@ class App extends Component {
             <Text>Ola</Text>
             <Text> Data: {value}</Text>
             {this.state.objects.map(objec => {
-              return <PersonListItem name={objec} />;
+              return <PersonListItem user={objec} />;
             })}
           </View>
         </ScrollView>
         <View style={styles.containercenter}>
-          <Text>Enter Text</Text>
+          <Text>Enter Information</Text>
           <View>
             <TextInput
-              value={this.state.newObject}
+              value={this.state.newUserFirstName}
               style={styles.textInput}
-              placeholder="e.g. Hello World"
-              onChangeText={this.handleChange}
+              placeholder="First Name"
+              onChangeText={this.handleFirstName}
+            />
+            <TextInput
+              value={this.state.newUserLastName}
+              style={styles.textInput}
+              placeholder="Last Name"
+              onChangeText={this.handleLastName}
+            />
+            <TextInput
+              value={this.state.newUserAge}
+              style={styles.textInput}
+              placeholder="Age"
+              onChangeText={this.handleAge}
             />
             <Button title="Add" onPress={this.onButtonPress} />
           </View>

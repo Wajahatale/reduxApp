@@ -27,11 +27,13 @@ class PersonListItem extends Component {
           ]}>
           <Text>
             <Text style={styles.singleSearchResultArticle}>
-              {this.props.name}{' '}
+              {this.props.user.firstName}{' '}
             </Text>
-            <Text style={styles.singleSearchResultMainWord}>What</Text>
+            <Text style={styles.singleSearchResultMainWord}>
+              {this.props.user.lastName}{' '}
+            </Text>
           </Text>
-          <Text style={styles.enWord}>Eng</Text>
+          <Text style={styles.enWord}>{this.props.user.age}</Text>
         </View>
         <View style={styles.searchResultTypeOfWordBlock}>
           <Text style={[styles.typeOfWord]}>Name</Text>
