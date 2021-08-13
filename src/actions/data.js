@@ -1,7 +1,7 @@
 import {DATA_CHANGE} from '../constants';
-export function changeData(value) {
+export function changeData(object) {
   return {
     type: DATA_CHANGE,
-    payload: value,
+    payload: object,
   };
 }

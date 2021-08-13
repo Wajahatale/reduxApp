@@ -20,7 +20,8 @@ import {
   View,
   ActionSheetIOS,
 } from 'react-native';
-import {changeData} from './src/actions/data';
+import * as DataActions from './src/actions/data';
+
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import PersonListItem from './src/components/PersonListItem';
@@ -71,28 +72,40 @@ class App extends Component {
         age: this.state.newUserAge,
       };
 
-      this.addItemToTheList(newUser);
+      // this.addItemToTheList(newUser);
+
+      let {objects, actions} = this.props;
+
+      Alert.alert(JSON.stringify(actions.changeData));
+
+      const items = this.state.objects;
+      items.push(newUser);
+      objects = items;
+      console.log('object', objects);
+      actions.changeData(objects);
+      // let {count, actions} = this.state;
     }
   };
 
-  addItemToTheList = item => {
-    var items = this.state.objects;
-    items.push(item);
+  // addItemToTheList = item => {
+  //   const items = this.state.objects;
+  //   items.push(item);
 
-    this.setState({
-      objects: items,
-      newUserFirstName: '',
-      newUserLastName: '',
-      newUserAge: '',
-    });
-    // Alert.alert(JSON.stringify(this.state.objects));
-  };
+  //   this.setState({
+  //     objects: items,
+  //     newUserFirstName: '',
+  //     newUserLastName: '',
+  //     newUserAge: '',
+  //   });
+  //   // Alert.alert(JSON.stringify(this.state.objects));
+  // };
 
   removeItemFromList(item) {}
 
   removeItemFromIndex(index) {}
 
   render() {
+    console.log(this.props.actions);
     const {value} = this.state;
     return (
       <SafeAreaView>
@@ -155,10 +168,10 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  value: state.value,
+  objects: state.objects,
 });
 
-const ActionCreators = Object.assign({}, changeData);
+const ActionCreators = Object.assign({}, DataActions);
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(ActionCreators, dispatch),
 });

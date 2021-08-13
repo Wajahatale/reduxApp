@@ -1,13 +1,13 @@
 import {DATA_CHANGE} from '../constants';
 const initialState = {
-  data: [''],
+  objects: [],
 };
 const dataReducer = (state = initialState, action) => {
   switch (action.type) {
     case DATA_CHANGE:
       return {
         ...state,
-        data: action.payload,
+        objects: action.payload,
       };
     default:
       return state;

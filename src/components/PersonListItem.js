@@ -34,6 +34,9 @@ class PersonListItem extends Component {
             </Text>
           </Text>
           <Text style={styles.enWord}>{this.props.user.age}</Text>
+          <TouchableOpacity>
+            <Text style={styles.enWord}>Del</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.searchResultTypeOfWordBlock}>
           <Text style={[styles.typeOfWord]}>Name</Text>
